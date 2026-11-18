@@ -13,11 +13,18 @@ import { PATHS, type AppPath } from './paths'
 
 interface NavigateOptions {
   replace?: boolean
+  search?: string
 }
 
 interface RouterContextValue {
   pathname: string
+  search: string
   navigate: (to: AppPath, options?: NavigateOptions) => void
+}
+
+interface RouterLocation {
+  pathname: string
+  search: string
 }
 
 const RouterContext = createContext<RouterContextValue | null>(null)
@@ -28,13 +35,21 @@ function normalizePath(rawPath: string): string {
 }
 
 export function RouterProvider({ children }: { children: ReactNode }) {
-  const [pathname, setPathname] = useState<string>(() =>
-    typeof window !== 'undefined' ? normalizePath(window.location.pathname) : PATHS.LANDING,
+  const [location, setLocation] = useState<RouterLocation>(() =>
+    typeof window !== 'undefined'
+      ? {
+          pathname: normalizePath(window.location.pathname),
+          search: window.location.search,
+        }
+      : { pathname: PATHS.LANDING, search: '' },
   )
 
   useEffect(() => {
     const handlePopState = () => {
-      setPathname(normalizePath(window.location.pathname))
+      setLocation({
+        pathname: normalizePath(window.location.pathname),
+        search: window.location.search,
+      })
     }
 
     window.addEventListener('popstate', handlePopState)
@@ -43,18 +58,25 @@ export function RouterProvider({ children }: { children: ReactNode }) {
 
   const navigate = useCallback((to: AppPath, options?: NavigateOptions) => {
     const normalizedTarget = normalizePath(to)
-    if (window.location.pathname !== normalizedTarget) {
+    const targetSearch = options?.search ?? ''
+    if (
+      window.location.pathname !== normalizedTarget ||
+      window.location.search !== targetSearch
+    ) {
       if (options?.replace) {
-        window.history.replaceState({}, '', normalizedTarget)
+        window.history.replaceState({}, '', `${normalizedTarget}${targetSearch}`)
       } else {
-        window.history.pushState({}, '', normalizedTarget)
+        window.history.pushState({}, '', `${normalizedTarget}${targetSearch}`)
       }
     }
-    setPathname(normalizedTarget)
+    setLocation({ pathname: normalizedTarget, search: targetSearch })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
 
-  const value = useMemo(() => ({ pathname, navigate }), [pathname, navigate])
+  const value = useMemo(
+    () => ({ ...location, navigate }),
+    [location, navigate],
+  )
 
   return <RouterContext.Provider value={value}>{children}</RouterContext.Provider>
 }
@@ -64,7 +86,7 @@ export function useLocation() {
   if (!context) {
     throw new Error('useLocation must be used within a RouterProvider')
   }
-  return { pathname: context.pathname }
+  return { pathname: context.pathname, search: context.search }
 }
 
 export function useNavigate() {
@@ -78,9 +100,10 @@ export function useNavigate() {
 export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
   to: AppPath
   replace?: boolean
+  search?: string
 }
 
-export function Link({ to, replace, onClick, children, ...rest }: LinkProps) {
+export function Link({ to, replace, search, onClick, children, ...rest }: LinkProps) {
   const navigate = useNavigate()
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -96,11 +119,11 @@ export function Link({ to, replace, onClick, children, ...rest }: LinkProps) {
       return
     }
     event.preventDefault()
-    navigate(to, { replace })
+    navigate(to, { replace, search })
   }
 
   return (
-    <a href={to} onClick={handleClick} {...rest}>
+    <a href={`${to}${search ?? ''}`} onClick={handleClick} {...rest}>
       {children}
     </a>
   )
@@ -133,4 +156,3 @@ export function NavLink({ to, className, children, ...rest }: NavLinkProps) {
     </Link>
   )
 }
-
