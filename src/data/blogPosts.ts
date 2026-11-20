@@ -10,6 +10,7 @@ export type BlogPost = {
   title: string;
   excerpt: string;
   image: string;
+  imageFit?: "cover" | "contain";
 };
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -20,21 +21,22 @@ export const BLOG_POSTS: BlogPost[] = [
     amount: "USD 15.000",
     date: "Oct 24, 2026",
     read: "8 min read",
-    title: "Shipping a Flutter App: From Emulator to Codemagic",
+    title: "Building a Flutter Savings Dashboard",
     excerpt:
-      "An inquiry into building, signing and deploying Flutter apps, examining the build errors nobody warns you about and...",
-    image: "/images/post-1.jpg",
+      "A clear mobile money home screen with an account balance, quick actions and savings goals, built with Flutter.",
+    image: "/images/blogs/flutter-state.png",
+    imageFit: "contain",
   },
   {
     id: 2,
-    category: "Web",
+    category: "Mobile",
     price: "Free",
     date: "Nov 02, 2026",
     read: "5 min read",
-    title: "Flask and Streamlit: Two Ways to Demo a Project",
+    title: "The Creator Studio React Native Dashboard",
     excerpt:
-      "Exploring lightweight dashboards and quick prototypes to revitalize how student projects are presented to supervisors and...",
-    image: "/images/post-2.jpg",
+      "A mobile creator workspace with at-a-glance insights, recent activity and quick access to the actions creators use most.",
+    image: "/images/blogs/dashboard.png",
   },
   {
     id: 3,
@@ -46,40 +48,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Laravel APIs: Building an Admin Panel with Filament",
     excerpt:
       "Lessons drawn from building a Laravel backend for a mobile client: authentication, resource design, and admin tooling...",
-    image: "/images/post-3.jpg",
+    image: "/images/blogs/laravelFilament.png",
   },
-  {
-    id: 4,
-    category: "Mobile",
-    price: "Free",
-    date: "Nov 18, 2026",
-    read: "6 min read",
-    title: "Debugging Expo Bundling Errors in React Native",
-    excerpt:
-      "A practical look at tracing a broken bundle back to its cause, and the checks that save hours of guessing...",
-    image: "/images/post-4.jpg",
-  },
-  {
-    id: 5,
-    category: "Backend",
-    price: "Free",
-    date: "Nov 21, 2026",
-    read: "7 min read",
-    title: "Deploying Flask and Laravel Apps to Render",
-    excerpt:
-      "What changes between local and production, covering environment variables, databases and the first deploy that fails...",
-    image: "/images/post-5.jpg",
-  },
-  {
-    id: 6,
-    category: "Web",
-    price: "Paid",
-    amount: "USD 5.000",
-    date: "Nov 25, 2026",
-    read: "9 min read",
-    title: "Building a Security Dashboard with Flask",
-    excerpt:
-      "Structuring models, routes and charts for a small operations dashboard that stays readable as it grows...",
-    image: "/images/post-6.jpg",
-  },
+
 ];

@@ -147,7 +147,13 @@ function PostImage({ post }: { post: BlogPost }) {
       alt=""
       loading="lazy"
       onError={() => setFailed(true)}
-      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: post.imageFit ?? "cover",
+        display: "block",
+        background: post.imageFit === "contain" ? "#f3f2f6" : undefined,
+      }}
     />
   );
 }

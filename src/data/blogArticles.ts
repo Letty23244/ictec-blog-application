@@ -23,31 +23,31 @@ export const FALLBACK_ARTICLE: BlogArticle = {
 
 export const BLOG_ARTICLES: Record<string, BlogArticle> = {
   "1": {
-    "subtitle": "How a Flutter app goes from a working emulator build to a signed release that installs on a real phone.",
-    "caption": "Replace this cover with a screenshot from your own project.",
+    "subtitle": "A look at the Flutter savings dashboard, where balances, everyday actions and savings goals come together on one mobile screen.",
+    "caption": "The Flutter dashboard brings the account balance, quick actions and savings goals together.",
     "quote": {
-      "text": "A build that only works on your laptop is a draft, not a release.",
-      "source": "Lesson from my first deployment"
+      "text": "A useful money dashboard makes your balance and next action easy to find.",
+      "source": "Designing the Flutter savings home screen"
     },
     "paragraphs": [
-      "Most Flutter tutorials end the moment the app runs on an emulator. That is where the real work starts: signing keys, build flavors, environment variables, and a pipeline that must succeed without you watching it.",
-      "My first Codemagic build failed seven times in a row, and every failure taught me something the documentation assumed I already knew. This write-up keeps those failures in, in the order they happened.",
-      "The first fundamental is reproducibility: pin the Flutter version, commit the lockfile, and treat the signing keystore like a password. Everything else in the pipeline depends on those three decisions being made early.",
-      "Next, I walk through the exact workflow file I use, the environment variables that must never reach the repository, and the checklist I run before tagging a release."
+      "The image shows the home screen of a Flutter savings app. I wanted the most useful information to be clear as soon as the screen opens: the account balance first, followed by quick actions and the user's savings goals.",
+      "The balance card gives the main figure visual priority, while the deposit, withdrawal, lock-savings and auto-savings actions are grouped into easy-to-scan buttons. Keeping these actions close to the balance makes common tasks easier to find.",
+      "Savings goals add a sense of progress beyond the current balance. A compact goal preview and a link to view all goals let the dashboard stay focused while still giving users a next step. The bottom navigation keeps the other areas of the app within reach.",
+      "Building this screen in Flutter is about more than arranging cards: spacing, readable labels and touch-friendly controls all matter on a real phone. Testing the layout on device helps ensure the dashboard remains clear and usable beyond the emulator."
     ]
   },
   "2": {
-    "subtitle": "When a lightweight Flask dashboard beats a Streamlit prototype, and when it does not.",
-    "caption": "Replace this cover with a screenshot from your own project.",
+    "subtitle": "How I built the React Native dashboard for The Creator Studio.",
+    "caption": "A dashboard view from The Creator Studio React Native app.",
     "quote": {
-      "text": "Choose the tool that fails gracefully in front of an audience.",
-      "source": "Notes from a supervisor demo"
+      "text": "A dashboard should make the creator's next decision obvious.",
+      "source": "The Creator Studio design principle"
     },
     "paragraphs": [
-      "Supervisor demos reward clarity over cleverness. Streamlit gets a data idea on screen in an afternoon, while Flask gives you routes, templates and control over exactly what the audience sees.",
-      "I built the same small project twice to compare them honestly: setup time, deployment effort, and how each one behaved when the demo wifi was slow.",
-      "Streamlit wins on speed to first screen and interactive widgets. Flask wins when you need authentication, custom layouts, or an API that other clients will call later.",
-      "My rule now: prototype in Streamlit, then move to Flask only when the prototype starts needing things a notebook-style app was never meant to do."
+      "The Creator Studio dashboard started as a React Native interface for creators who need their important information at a glance. Instead of filling the screen with controls, I focused on the metrics, activity and actions a creator uses most.",
+      "I organized the screen with reusable components and responsive layouts that work consistently across mobile sizes. Cards, navigation and data sections keep the experience predictable while Expo makes it quick to test the app during development.",
+      "Building the dashboard also meant handling real application states: loading data, displaying useful empty states, and showing clear feedback when an action fails. These details make the interface feel dependable rather than merely decorative.",
+      "The final dashboard gives The Creator Studio a polished mobile workspace: quick insight, simple navigation and a clear path to the next task. It is a practical example of how React Native can turn a business workflow into a clean creator-focused experience."
     ]
   },
   "3": {
@@ -64,46 +64,5 @@ export const BLOG_ARTICLES: Record<string, BlogArticle> = {
       "Then come resources, policies and Filament tables: how I structure them, which relationships I eager-load, and the two mistakes that slowed my dashboard to a crawl."
     ]
   },
-  "4": {
-    "subtitle": "A practical checklist for tracing a broken React Native bundle back to its real cause.",
-    "caption": "Replace this cover with a screenshot from your own project.",
-    "quote": {
-      "text": "Change one thing, rebuild, and write down what happened.",
-      "source": "My debugging rule"
-    },
-    "paragraphs": [
-      "When Metro refuses to bundle, the red error screen rarely names the true culprit. It points at the symptom, usually a module that failed to resolve, and leaves the cause for you to find.",
-      "After an SDK upgrade broke my project, I wrote down every check in the order that actually saved time, instead of the order that felt logical at three in the morning.",
-      "Start by clearing the cache and reinstalling dependencies, then compare package versions against what the SDK expects. Most bundling failures are version mismatches in disguise.",
-      "If that fails, bisect: remove recent packages one at a time. It feels slow, but it is faster than guessing, and it leaves you with a clear record of the cause."
-    ]
-  },
-  "5": {
-    "subtitle": "What changes between localhost and production when you deploy Flask and Laravel apps.",
-    "caption": "Replace this cover with a screenshot from your own project.",
-    "quote": {
-      "text": "Production is just your laptop with all the shortcuts removed.",
-      "source": "From my deployment notes"
-    },
-    "paragraphs": [
-      "A project that runs perfectly on my laptop has never once deployed perfectly on the first try. Production differs in small, boring ways: environment variables, file paths, databases and permissions.",
-      "Render makes the first deploy approachable, but it will not warn you about the assumptions your code quietly makes about the machine it runs on.",
-      "Keep configuration out of the code and in environment variables, and make the app read them at startup. If a value is missing, fail loudly with a clear message.",
-      "I finish with the order I now deploy things in: database first, secrets second, the app third, and a smoke test before I tell anyone the link."
-    ]
-  },
-  "6": {
-    "subtitle": "Structuring models, routes and charts for a small operations dashboard that stays readable as it grows.",
-    "caption": "Replace this cover with a screenshot from your own project.",
-    "quote": {
-      "text": "Make the boring parts boring, so the interesting parts can change.",
-      "source": "Principle behind the dashboard"
-    },
-    "paragraphs": [
-      "A dashboard looks simple until the third data source arrives. Then every shortcut taken in the first week turns into a template nobody wants to touch.",
-      "For a Flask and SQLAlchemy dashboard, I settled on a few structural rules early, and they paid for themselves every time the requirements changed.",
-      "Models stay thin, queries live in one module, and routes only translate between requests and those queries. Charts receive plain data and know nothing about the database.",
-      "The rest covers pagination, filtering that survives a page refresh, and the small caching layer that kept the dashboard fast without hiding stale data."
-    ]
-  }
+
 };

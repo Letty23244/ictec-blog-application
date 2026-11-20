@@ -295,7 +295,16 @@ export function BlogDetailsPage() {
         <p style={S.sub}>{article.subtitle}</p>
 
         <div style={S.cover}>
-          <Pic src={post.image} alt={post.title} fallback={categoryIcon(post.category)} />
+          <Pic
+            src={post.image}
+            alt={post.title}
+            fallback={categoryIcon(post.category)}
+            style={
+              post.imageFit === "contain"
+                ? { objectFit: "contain", background: "#f3f2f6" }
+                : undefined
+            }
+          />
         </div>
         <p style={S.caption}><Camera size={11} aria-hidden="true" /> {article.caption}</p>
 

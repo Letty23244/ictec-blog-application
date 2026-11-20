@@ -113,7 +113,7 @@ export default function Portfolio() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // no-op: clipboard access may be unavailable in some browsers
+      
     }
   };
 
